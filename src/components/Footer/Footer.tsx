@@ -5,7 +5,7 @@ const Footer = () => {
         <div>© My Blog</div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
