@@ -1,10 +1,14 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import styles from '~/styles/Home.module.css'
+import fs from 'fs'
+import matter from 'gray-matter'
 
-const inter = Inter({ subsets: ['latin'] })
+type Props = {
+  posts: string
+}
 
-export default function Home() {
+export const Home: React.FC<Props> = ({ posts }) => {
   return (
     <>
       <Head>
@@ -14,8 +18,27 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className="my-8">コンテンツ</div>
+        <div className="my-8">posts</div>
       </main>
     </>
   )
+}
+
+export const getStaticProps = () => {
+  const files = fs.readdirSync('posts')
+  const posts = files.map((fileName) => {
+    const slug = fileName.replace(/\.md$/, '')
+    const fileContent = fs.readFileSync(`posts/${fileName}`, 'utf-8')
+    const { data } = matter(fileContent)
+    return {
+      frontMatter: data,
+      slug,
+    }
+  })
+
+  return {
+    props: {
+      posts,
+    },
+  }
 }
