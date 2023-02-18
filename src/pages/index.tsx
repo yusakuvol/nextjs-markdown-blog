@@ -3,12 +3,10 @@ import { Inter } from '@next/font/google'
 import styles from '~/styles/Home.module.css'
 import fs from 'fs'
 import matter from 'gray-matter'
+import type { InferGetStaticPropsType } from 'next'
 
-type Props = {
-  posts: string
-}
-
-export const Home: React.FC<Props> = ({ posts }) => {
+const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
+  console.log(props)
   return (
     <>
       <Head>
@@ -35,10 +33,11 @@ export const getStaticProps = () => {
       slug,
     }
   })
-
   return {
     props: {
       posts,
     },
   }
 }
+
+export default Home
