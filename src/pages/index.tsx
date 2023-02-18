@@ -1,12 +1,12 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
+import Link from 'next/link'
 import styles from '~/styles/Home.module.css'
 import fs from 'fs'
 import matter from 'gray-matter'
 import type { InferGetStaticPropsType } from 'next'
 
 const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-  console.log(props)
+  const { posts } = props
   return (
     <>
       <Head>
@@ -16,7 +16,13 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className="my-8">posts</div>
+        <div className="my-8">
+          {posts.map((post) => (
+            <div key={post.slug}>
+              <Link href={`/post/${post.slug}`}>{post.frontMatter.title}</Link>
+            </div>
+          ))}
+        </div>
       </main>
     </>
   )
