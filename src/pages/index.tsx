@@ -4,6 +4,7 @@ import styles from '~/styles/Home.module.css'
 import fs from 'fs'
 import matter from 'gray-matter'
 import type { InferGetStaticPropsType } from 'next'
+import PostCard from '~/components/PostCard/PostCard'
 
 const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { posts } = props
@@ -17,11 +18,11 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
       </Head>
       <main className={styles.main}>
         <div className="my-8">
-          {posts.map((post) => (
-            <div key={post.slug}>
-              <Link href={`/post/${post.slug}`}>{post.frontMatter.title}</Link>
-            </div>
-          ))}
+          <div className="grid grid-cols-3">
+            {posts.map((post) => (
+              <PostCard key={post.slug} post={post} />
+            ))}
+          </div>
         </div>
       </main>
     </>
