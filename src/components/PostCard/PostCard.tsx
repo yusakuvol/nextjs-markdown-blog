@@ -13,7 +13,7 @@ type Props = {
 const PostCard = (props: Props) => {
   const { post } = props
   return (
-    <Link href={`/post/${post.slug}`}>
+    <Link href={`/posts/${post.slug}`}>
       <div className="border rounded-lg">
         <Image
           src={`/${post.frontMatter.image}`}
